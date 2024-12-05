@@ -1,0 +1,20 @@
+name: Echo CI/CD
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Execute
+        run: |
+          echo ${{ github.ref_type }}
+          echo ${{ github.ref_name }}
+          echo ${{ github.sha }}
