@@ -16,4 +16,4 @@ jobs:
       matrix:
         environment: [ dev, sandbox ]
     steps:
-      - uses: ./github/workflows/echo.yml
+      - uses: ./.github/workflows/echo.yml
