@@ -1,0 +1,19 @@
+name: Deploy CI/CD
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+    branches:
+      - 'main'
+      - 'environments'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [ dev, sandbox ]
+    steps:
+      - uses: ./github/workflows/echo.yml
