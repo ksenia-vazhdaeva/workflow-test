@@ -6,6 +6,7 @@ on:
       - 'v*.*.*'
     branches:
       - 'main'
+      - 'environments'
   workflow_dispatch:
 
 jobs:
@@ -18,3 +19,5 @@ jobs:
           echo ${{ github.ref_type }}
           echo ${{ github.ref_name }}
           echo ${{ github.sha }}
+          echo ${{ secrets.CREDENTIALS }}
+          echo ${{ vars.DATA }}
