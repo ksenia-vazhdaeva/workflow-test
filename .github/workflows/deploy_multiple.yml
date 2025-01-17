@@ -1,0 +1,27 @@
+name: Deploy CI/CD
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+    branches:
+      - 'main'
+      - 'environments'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubutntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [ dev, sandbox ]
+    environment: ${{ matrix.environment }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Execute
+        run: |
+          echo ${{ github.ref_type }}
+          echo ${{ github.ref_name }}
+          echo ${{ github.sha }}
+          echo ${{ var.DATA }}
