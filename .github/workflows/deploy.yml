@@ -12,6 +12,7 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         environment: [ dev, sandbox ]
     uses: ./.github/workflows/echo.yml
