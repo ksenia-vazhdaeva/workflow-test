@@ -24,4 +24,4 @@ jobs:
           echo ${{ github.ref_type }}
           echo ${{ github.ref_name }}
           echo ${{ github.sha }}
-          echo ${{ var.DATA }}
+          echo ${{ vars.DATA }}
