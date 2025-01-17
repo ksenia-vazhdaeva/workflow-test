@@ -1,16 +1,15 @@
 name: Echo CI/CD
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
-    branches:
-      - 'main'
-      - 'environments'
-  workflow_dispatch:
+  workflow_call:
+    inputs: 
+      environment: 
+        required: true
+        type: string
 
 jobs:
   build:
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
