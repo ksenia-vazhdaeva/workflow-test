@@ -16,4 +16,5 @@ jobs:
       matrix:
         environment: [ dev, sandbox ]
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/echo.yml
