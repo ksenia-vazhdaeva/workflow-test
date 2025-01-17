@@ -20,3 +20,4 @@ jobs:
           echo ${{ github.sha }}
           echo ${{ secrets.DATA }}
           echo ${{ vars.DATA }}
+          exit 1
