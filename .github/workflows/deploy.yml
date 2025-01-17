@@ -11,12 +11,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         environment: [ dev, sandbox ]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/workflows/echo.yml
-        with:
-          environment: ${{ matrix.environment }}
+    uses: ./.github/workflows/echo.yml
+    with:
+        environment: ${{ matrix.environment }}
