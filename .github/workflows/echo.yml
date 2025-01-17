@@ -20,4 +20,6 @@ jobs:
           echo ${{ github.sha }}
           echo ${{ secrets.DATA }}
           echo ${{ vars.DATA }}
-          exit 1
+          if [ "${{ inputs.environment }}" = dev ]; then
+            exit 1
+          fi
