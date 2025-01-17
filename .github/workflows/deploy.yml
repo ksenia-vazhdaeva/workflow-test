@@ -1,12 +1,6 @@
 name: Deploy CI/CD
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
-    branches:
-      - 'main'
-      - 'environments'
   workflow_dispatch:
 
 jobs:
