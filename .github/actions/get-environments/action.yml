@@ -9,7 +9,7 @@ inputs:
     required: true
 outputs:
   data:
-    description: Array of environment names
+    description: JSON array of environment names
     value: ${{ steps.get-environments.outputs.data }}
 runs:
   using: composite
