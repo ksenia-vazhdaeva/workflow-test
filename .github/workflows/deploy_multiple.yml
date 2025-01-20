@@ -10,6 +10,22 @@ on:
   workflow_dispatch:
 
 jobs:
+  get-environments:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install @octokit/action
+      - run: |
+          DATA=$(node .github/actions/get-environments.mjs)
+          echo $DATA
+          echo exporting
+          echo "data=$DATA" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
   build:
     runs-on: ubuntu-latest
     strategy:
