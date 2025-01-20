@@ -10,28 +10,53 @@ on:
   workflow_dispatch:
 
 jobs:
+#  get-environments:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-node@v4
+#        with:
+#          node-version: 20
+#      - run: npm install @octokit/action
+#      - run: |
+#          DATA=$(node .github/actions/get-environments.mjs)
+#          echo "data=$DATA" >> $GITHUB_OUTPUT
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          GITHUB_REPOSITORY: ${{ github.repository }}
+#  build:
+#    runs-on: ubuntu-latest
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        environment: [ dev, sandbox ]
+#    environment: ${{ matrix.environment }}
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Execute
+#        run: |
+#          echo ${{ github.ref_type }}
+#          echo ${{ github.ref_name }}
+#          echo ${{ github.sha }}
+#          echo ${{ vars.DATA }}
+#
   get-environments:
     runs-on: ubuntu-latest
+    outputs:
+      data: ${{ steps.environments.outputs.data }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install @octokit/action
-      - run: |
-          DATA=$(node .github/actions/get-environments.mjs)
-          echo $DATA
-          echo exporting
-          echo "data=$DATA" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-  build:
+      - name: Get environments
+        id: environments
+        uses: ./.github/actions/get-environments
+  execute:
     runs-on: ubuntu-latest
+    needs:
+      - get-environments
     strategy:
       fail-fast: false
       matrix:
-        environment: [ dev, sandbox ]
+        environment: ${{ needs.get-environments.outputs.data }}
     environment: ${{ matrix.environment }}
     steps:
       - uses: actions/checkout@v4

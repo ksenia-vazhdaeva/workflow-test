@@ -1,0 +1,22 @@
+name: Environments
+description: Extracts names of all environments in the repository
+outputs:
+  data:
+    description: Array of environment names
+    value: ${{ steps.get-environments.outputs.data }}
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - run: npm install @octokit/action
+      shell: bash
+    - id: get-environments
+      run: |
+        DATA=$(node .github/actions/get-environments/script.mjs)
+        echo "data=$DATA" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
