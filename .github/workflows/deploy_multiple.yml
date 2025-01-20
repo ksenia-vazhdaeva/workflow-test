@@ -49,6 +49,9 @@ jobs:
       - name: Get environments
         id: environments
         uses: ./.github/actions/get-environments
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
   execute:
     runs-on: ubuntu-latest
     needs:

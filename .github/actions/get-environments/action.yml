@@ -1,5 +1,12 @@
 name: Environments
-description: Extracts names of all environments in the repository
+description: Extracts all environments in the GitHub repository
+inputs:
+  token:
+    description: GitHub token
+    required: true
+  repository:
+    description: GitHub repository
+    required: true
 outputs:
   data:
     description: Array of environment names
@@ -18,5 +25,5 @@ runs:
         echo "data=$DATA" >> $GITHUB_OUTPUT
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ inputs.token }}
+        GITHUB_REPOSITORY: ${{ inputs.repository }}
